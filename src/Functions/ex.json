@@ -1,0 +1,35 @@
+// POST - /api/lift/request/
+// Request elevator destination
+// Example Payload
+{ "from_floor": 0, "to_floor": 5 },
+
+// Example Response
+{"lift": 4},
+
+// GET - /api/lift/status/
+// Request Elevator status’s
+{
+	"lifts": {
+		"0": {
+			"floor": 0,
+			"destinations": [1, 5, 10]
+		},
+		"1": {
+			"floor": 0,
+			"destinations": [1, 10]
+		}
+	}
+}
+
+// GET - /api/lift/config/
+// Request Elevator configuration
+{
+	"lifts": {
+		"0": {
+			"serviced_floors": [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+		},
+		"1": {
+			"serviced_floors": [0, 7, 8, 9, 10]
+		}
+	}
+}
