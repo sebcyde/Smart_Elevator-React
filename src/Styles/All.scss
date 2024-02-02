@@ -1,0 +1,14 @@
+@import "./Components.scss";
+
+* {
+	background-color: gray;
+	color: white;
+}
+
+.App {
+	border: 1px solid blue;
+	flex-direction: column;
+	display: flex;
+	height: 100%;
+	width: 100%;
+}

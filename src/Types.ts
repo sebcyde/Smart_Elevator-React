@@ -30,11 +30,11 @@ export type AllElevatorStatus = {
 // GET - /api/lift/config/
 export type AllElevatorConfig = {
 	lifts: {
-		0: {
-			serviced_floors: number[];
-		};
-		1: {
-			serviced_floors: number[];
-		};
+		0: SingleLiftStatus;
+		1: SingleLiftStatus;
 	};
+};
+
+export type SingleLiftStatus = {
+	serviced_floors: number[];
 };

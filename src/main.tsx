@@ -1,21 +1,20 @@
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 const rootElement = document.getElementById("root");
 import Loading from "./Pages/Loading.tsx";
-import { store } from "./Redux/Store.tsx";
+import { store } from "./Redux/Store.ts";
 import ReactDOM from "react-dom/client";
 import { Provider } from "react-redux";
 import App from "./App.tsx";
 import "./Styles/All.scss";
 import React from "react";
-import "./index.css";
 
 const router = createBrowserRouter([
 	{
-		path: "/smart/lobby",
+		path: "/Smart_Elevator-React/lobby",
 		element: <App />,
 	},
 	{
-		path: "/gwr-top-trumps/loading",
+		path: "/Smart_Elevator-React/loading",
 		element: <Loading />,
 	},
 ]);

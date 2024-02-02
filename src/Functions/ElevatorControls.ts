@@ -11,6 +11,10 @@ import {
 } from "./ApiEndpoints";
 import axios from "axios";
 
+//TESTING
+import fakeConfig from "../FakeData/ElevatorConfig.json";
+import fakeStatus from "../FakeData/ElevatorStatus.json";
+
 // Request the current destination of an elevator
 // Example - "take me from floor 1 to 10" -> "Use lift 3"
 export const requestElevatorDestination = async ({
@@ -36,10 +40,12 @@ export const requestElevatorDestination = async ({
 // GET Request - Returns current positions of all elevators
 export const requestElevatorStatus = async (): Promise<AllElevatorStatus> => {
 	try {
-		const response = await axios.get(ElevatorStatusEndpoint);
+		console.log("Retrieving Elevator Status.");
+		return fakeStatus;
 
 		// Return elevators status object
-		return response.data;
+		// const response = await axios.get(ElevatorStatusEndpoint);
+		// return response.data;
 	} catch (error) {
 		// Handle errors gracefully
 
@@ -51,10 +57,13 @@ export const requestElevatorStatus = async (): Promise<AllElevatorStatus> => {
 // GET Request - Returns current positions of all elevators
 export const requestElevatorConfig = async (): Promise<AllElevatorConfig> => {
 	try {
-		const response = await axios.get(ElevatorConfigEndpoint);
+		console.log("Retrieving Elevator Config.");
+		return fakeConfig;
+
+		// const response = await axios.get(ElevatorConfigEndpoint);
 
 		// Handle the response data as needed
-		return response.data;
+		// return response.data;
 	} catch (error) {
 		// Handle errors gracefully
 		console.error("Error fetching elevator configuration:", error);

@@ -1,0 +1,30 @@
+.StatusBoard {
+	text-transform: uppercase;
+	justify-content: center;
+	border: 1px solid red;
+	align-items: center;
+	letter-spacing: 2px;
+	text-align: center;
+	width: fit-content;
+	font-weight: 600;
+	font-size: 25px;
+	display: flex;
+	padding: 20px;
+}
+
+.ControlPanel {
+	text-transform: uppercase;
+	justify-content: center;
+	border: 1px solid red;
+	align-items: center;
+	letter-spacing: 2px;
+	text-align: center;
+	width: fit-content;
+	font-weight: 600;
+	font-size: 25px;
+	display: flex;
+	padding: 20px;
+
+	.ElevatorButton {
+	}
+}

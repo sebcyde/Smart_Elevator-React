@@ -1,0 +1,24 @@
+{
+	"lifts": {
+		"0": {
+			"floor": 3,
+			"destinations": [5, 8, 10]
+		},
+		"1": {
+			"floor": 7,
+			"destinations": [2, 4]
+		},
+		"2": {
+			"floor": 1,
+			"destinations": [3, 6]
+		},
+		"3": {
+			"floor": 5,
+			"destinations": [9, 2, 7]
+		},
+		"4": {
+			"floor": 10,
+			"destinations": [1, 4, 8]
+		}
+	}
+}

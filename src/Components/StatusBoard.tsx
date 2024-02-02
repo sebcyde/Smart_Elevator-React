@@ -7,9 +7,7 @@ const StatusBoard = () => {
 		(state: RootState) => state.currentFloor
 	);
 
-	// useEffect(() => {}, [CurrentFloor]);
-
-	return <div>Current Floor: {CurrentFloor}</div>;
+	return <div className="StatusBoard">Current Floor: {CurrentFloor}</div>;
 };
 
 export default StatusBoard;

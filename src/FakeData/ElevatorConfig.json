@@ -1,0 +1,19 @@
+{
+	"lifts": {
+		"0": {
+			"serviced_floors": [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+		},
+		"1": {
+			"serviced_floors": [2, 4, 6, 8, 10]
+		},
+		"2": {
+			"serviced_floors": [1, 3, 5, 7, 9]
+		},
+		"3": {
+			"serviced_floors": [0, 2, 4, 6, 8, 10]
+		},
+		"4": {
+			"serviced_floors": [5, 7, 9]
+		}
+	}
+}
