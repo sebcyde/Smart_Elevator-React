@@ -16,25 +16,27 @@ export type ElevatorRequestResponse = {
 // GET - /api/lift/status/
 export type AllElevatorStatus = {
 	lifts: {
-		0: {
-			floor: number;
-			destinations: number[];
-		};
-		1: {
-			floor: number;
-			destinations: number[];
-		};
+		[key: number]: SingleElevatorStatus;
 	};
+};
+
+export type SingleElevatorStatus = {
+	floor: number;
+	destinations: number[];
 };
 
 // GET - /api/lift/config/
 export type AllElevatorConfig = {
 	lifts: {
-		0: SingleLiftStatus;
-		1: SingleLiftStatus;
+		[key: number]: SingleElevatorConfig;
 	};
 };
 
-export type SingleLiftStatus = {
+export type SingleElevatorConfig = {
 	serviced_floors: number[];
+};
+
+export type AvailableLift = {
+	liftID: number;
+	liftFloors: SingleElevatorConfig;
 };

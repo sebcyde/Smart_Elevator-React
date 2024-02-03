@@ -1,0 +1,57 @@
+.LiftContainer {
+	border: 1px solid red;
+	flex-direction: column;
+	margin: 0px 30px;
+	display: flex;
+	padding: 15px;
+	height: 600px;
+	width: 350px;
+
+	.LiftName {
+		text-transform: uppercase;
+		letter-spacing: 2px;
+		text-align: center;
+		margin-bottom: 0px;
+	}
+
+	.LiftStatus {
+		background-color: black;
+		border: 5px solid gray;
+		justify-content: center;
+		align-items: center;
+		margin: 0 auto 15px;
+		display: flex;
+		width: 100px;
+
+		.LiftLocation,
+		.LiftDirection {
+			background-color: transparent;
+			margin: 0px 5px;
+		}
+	}
+
+	.Lift {
+		border: 1px solid blue;
+		height: 100%;
+		flex: 1;
+
+		.Doors {
+			justify-content: space-evenly;
+			display: flex;
+			height: 100%;
+			.DoorLeft,
+			.DoorRight {
+				background-color: darkslategray;
+				height: 100%;
+				width: 50%;
+			}
+
+			.DoorLeft {
+				border-right: 1px solid black;
+			}
+			.DoorRight {
+				border-left: 1px solid black;
+			}
+		}
+	}
+}

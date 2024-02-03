@@ -1,8 +1,10 @@
 import {
 	AllElevatorConfig,
 	AllElevatorStatus,
+	AvailableLift,
 	ElevatorRequestPayload,
 	ElevatorRequestResponse,
+	SingleElevatorStatus,
 } from "../Types";
 import {
 	ElevatorConfigEndpoint,
@@ -40,7 +42,6 @@ export const requestElevatorDestination = async ({
 // GET Request - Returns current positions of all elevators
 export const requestElevatorStatus = async (): Promise<AllElevatorStatus> => {
 	try {
-		console.log("Retrieving Elevator Status.");
 		return fakeStatus;
 
 		// Return elevators status object
@@ -69,4 +70,37 @@ export const requestElevatorConfig = async (): Promise<AllElevatorConfig> => {
 		console.error("Error fetching elevator configuration:", error);
 		throw error;
 	}
+};
+
+// Get the filtered list of lifts for the current floor
+export const getLiftsForCurrentFloor = async (
+	CurrentFloor: number
+): Promise<AvailableLift[]> => {
+	let liftConfig: AllElevatorConfig = await requestElevatorConfig();
+
+	// Keys are numbers not strings so need a bit of magic type coercion here
+	let LiftIDs: number[] = Object.keys(liftConfig.lifts).map(Number);
+	let availableLifts: AvailableLift[] = [];
+
+	/* To filter the lifts that can be accessed from the current floor,
+  we need to iterate "lifts", but since "lifts" is an object not an array we can use a traditional for loop */
+	for (let i = 0; i < LiftIDs.length; i++) {
+		if (liftConfig.lifts[i].serviced_floors.includes(CurrentFloor)) {
+			availableLifts.push({
+				liftID: LiftIDs[i],
+				liftFloors: liftConfig.lifts[i],
+			});
+		}
+	}
+
+	console.log(availableLifts);
+	return availableLifts;
+};
+
+// Get the current position of a single elevator
+export const getSingleElevatorPosition = async (
+	ID: number
+): Promise<number> => {
+	const status = await requestElevatorStatus();
+	return status.lifts[ID].floor;
 };
