@@ -1,8 +1,8 @@
 {
 	"lifts": {
 		"0": {
-			"floor": 3,
-			"destinations": [5, 8, 10]
+			"floor": 0,
+			"destinations": [3, 5, 8, 10]
 		},
 		"1": {
 			"floor": 7,

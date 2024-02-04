@@ -1,13 +1,17 @@
 import { ChangingFloorSlice } from "./ChangingFloorSlice";
+import { RequiredLiftSlice } from "./RequiredLiftSlice";
 import { DestinationsSlice } from "./DestinationsSlice";
 import { configureStore } from "@reduxjs/toolkit";
 import { FloorSlice } from "./FloorSlice";
+import { PanelSlice } from "./PanelSlice";
 
 export const store = configureStore({
 	reducer: {
+		RequiredLift: RequiredLiftSlice.reducer,
 		currentFloor: FloorSlice.reducer,
 		changingFloor: ChangingFloorSlice.reducer,
 		destinations: DestinationsSlice.reducer,
+		currentPanel: PanelSlice.reducer,
 	},
 });
 

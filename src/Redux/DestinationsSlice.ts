@@ -18,10 +18,8 @@ export const DestinationsSlice = createSlice({
 				return (state = state.slice(1));
 			}
 		},
-		getDestinations: (state) => state,
 	},
 });
 
-export const { addDestination, removeDestination, getDestinations } =
-	DestinationsSlice.actions;
+export const { addDestination, removeDestination } = DestinationsSlice.actions;
 export default DestinationsSlice.reducer;

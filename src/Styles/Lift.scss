@@ -1,57 +1,194 @@
 .LiftContainer {
-	border: 1px solid red;
-	flex-direction: column;
+	height: fit-content;
+	align-items: center;
+	position: relative;
 	margin: 0px 30px;
 	display: flex;
-	padding: 15px;
-	height: 600px;
-	width: 350px;
 
-	.LiftName {
-		text-transform: uppercase;
-		letter-spacing: 2px;
-		text-align: center;
-		margin-bottom: 0px;
-	}
-
-	.LiftStatus {
-		background-color: black;
-		border: 5px solid gray;
-		justify-content: center;
-		align-items: center;
-		margin: 0 auto 15px;
+	.LiftInner {
+		flex-direction: column;
+		margin: 0px 10px;
 		display: flex;
-		width: 100px;
+		padding: 15px;
+		height: 600px;
+		width: 350px;
 
-		.LiftLocation,
-		.LiftDirection {
-			background-color: transparent;
-			margin: 0px 5px;
-		}
-	}
-
-	.Lift {
-		border: 1px solid blue;
-		height: 100%;
-		flex: 1;
-
-		.Doors {
-			justify-content: space-evenly;
-			display: flex;
-			height: 100%;
+		&.open {
 			.DoorLeft,
 			.DoorRight {
-				background-color: darkslategray;
-				height: 100%;
-				width: 50%;
+				display: none !important;
 			}
 
-			.DoorLeft {
-				border-right: 1px solid black;
-			}
-			.DoorRight {
-				border-left: 1px solid black;
+			.Lift {
+				background-color: goldenrod;
+				.ManContainer {
+					display: flex !important;
+					flex-direction: column;
+					align-items: flex-end;
+					justify-content: end;
+					position: relative;
+					height: 100%;
+
+					img {
+						background-color: goldenrod;
+						position: absolute;
+						margin: 5px;
+						height: 80%;
+						bottom: 0%;
+						left: 0%;
+					}
+				}
 			}
 		}
+
+		&:not(.open) {
+			.Doors {
+				width: 100%;
+			}
+		}
+
+		.LiftName {
+			text-transform: uppercase;
+			letter-spacing: 2px;
+			text-align: center;
+			margin-bottom: 0px;
+		}
+
+		.LiftStatus {
+			background-color: black;
+			border: 5px solid gray;
+			justify-content: center;
+			align-items: center;
+			margin: 0 auto 15px;
+			display: flex;
+			width: 100px;
+
+			&.GoingUp {
+				.LiftDirection {
+					rotate: 180deg !important;
+				}
+			}
+
+			.LiftLocation,
+			.LiftDirection {
+				background-color: transparent;
+				margin: 0px 5px;
+			}
+		}
+
+		.Lift {
+			border: 1px solid black;
+			display: flex;
+			height: 100%;
+			flex: 1;
+
+			.ManContainer {
+				display: none;
+			}
+
+			.Doors {
+				justify-content: space-evenly;
+				display: flex;
+				height: 100%;
+				.DoorLeft,
+				.DoorRight {
+					background-color: darkslategray;
+					height: 100%;
+					width: 50%;
+				}
+
+				.DoorLeft {
+					border-right: 1px solid black;
+				}
+				.DoorRight {
+					border-left: 1px solid black;
+				}
+			}
+		}
+	}
+
+	.CallButtonContainer {
+		background-color: darkslategray;
+		border: 1px solid black;
+		justify-content: center;
+		align-items: center;
+		display: flex;
+		height: 60px;
+		width: 60px;
+
+		.CallLiftButton {
+			background-color: red;
+			border: 1px solid black;
+			border-radius: 50%;
+			height: 40%;
+			width: 40%;
+
+			:hover {
+				cursor: pointer;
+			}
+		}
+	}
+
+	.ControlPanel {
+		background-color: darkslategray;
+		text-transform: uppercase;
+		border: 1px solid black;
+		justify-content: center;
+		flex-direction: column;
+		letter-spacing: 2px;
+		text-align: center;
+		position: absolute;
+		font-weight: 600;
+		font-size: 25px;
+		display: flex;
+		padding: 20px;
+		z-index: 9999;
+		width: 400px;
+
+		position: absolute;
+		top: 50%;
+		left: 50%;
+		transform: translate(-50%, -50%);
+
+		h2,
+		p {
+			background-color: transparent;
+			margin: 5px 0px;
+			width: 100%;
+		}
+
+		.AllFloorsContainer {
+			display: flex;
+			flex-wrap: wrap;
+		}
+
+		.FloorContainer {
+			align-items: center;
+			width: fit-content;
+			display: flex;
+			margin: 20px;
+
+			button {
+				background-color: brown;
+				border-radius: 50%;
+				padding: 10px;
+				height: 50px;
+				width: 50px;
+
+				&.highlight {
+					background-color: goldenrod;
+				}
+			}
+		}
+	}
+
+	.ArrowContainer {
+		background: transparent;
+		position: absolute;
+		height: 100px;
+		width: auto;
+		bottom: 0px;
+		z-index: 99;
+		rotate: -90deg;
 	}
 }

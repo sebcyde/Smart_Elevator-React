@@ -39,7 +39,7 @@ export const requestElevatorDestination = async ({
 	}
 };
 
-// GET Request - Returns current positions of all elevators
+// GET Request - Returns current positions and destination of all elevators
 export const requestElevatorStatus = async (): Promise<AllElevatorStatus> => {
 	try {
 		return fakeStatus;
@@ -48,14 +48,12 @@ export const requestElevatorStatus = async (): Promise<AllElevatorStatus> => {
 		// const response = await axios.get(ElevatorStatusEndpoint);
 		// return response.data;
 	} catch (error) {
-		// Handle errors gracefully
-
 		console.error("Error fetching elevator status:", error);
 		throw error;
 	}
 };
 
-// GET Request - Returns current positions of all elevators
+// GET Request - Returns serviceable floors of all elevators
 export const requestElevatorConfig = async (): Promise<AllElevatorConfig> => {
 	try {
 		console.log("Retrieving Elevator Config.");
@@ -66,7 +64,6 @@ export const requestElevatorConfig = async (): Promise<AllElevatorConfig> => {
 		// Handle the response data as needed
 		// return response.data;
 	} catch (error) {
-		// Handle errors gracefully
 		console.error("Error fetching elevator configuration:", error);
 		throw error;
 	}
@@ -103,4 +100,8 @@ export const getSingleElevatorPosition = async (
 ): Promise<number> => {
 	const status = await requestElevatorStatus();
 	return status.lifts[ID].floor;
+};
+
+export const changeFloors = async () => {
+	
 };

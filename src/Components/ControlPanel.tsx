@@ -1,97 +1,102 @@
-import { useSelector } from "react-redux";
-import {
-	AllElevatorConfig,
-	AllElevatorStatus,
-	ServicedFloors,
-	SingleElevatorConfig,
-	SingleElevatorStatus,
-} from "../Types";
-import React, { useEffect, useState } from "react";
-import { RootState } from "../Redux/Store";
+import { AllElevatorConfig, AllElevatorStatus } from "../Types";
 import {
 	requestElevatorConfig,
 	requestElevatorStatus,
 } from "../Functions/ElevatorControls";
+import { useState, useEffect } from "react";
+import { RootState } from "../Redux/Store";
+import { useDispatch, useSelector } from "react-redux";
+import { setCurrentPanel } from "../Redux/PanelSlice";
 
 type Props = {
 	ID: number;
-	liftFloors: SingleElevatorConfig;
 };
 
-const ControlPanel = () => {
-	const currentFloor = useSelector((state: RootState) => state.currentFloor);
-	const [Config, setConfig] = useState<AllElevatorConfig | null>(null);
-	const [Status, setStatus] = useState<AllElevatorStatus | null>(null);
-	const [Lifts, setLifts] = useState<AvailableLift[] | null>(null);
-	const [LoadingPanel, setLoadingPanel] = useState<boolean>(true);
+const ControlPanel = ({ ID }: Props) => {
+	const currentPanel = useSelector((state: RootState) => state.currentPanel);
+	const [AvailableFloors, setAvailableFloors] = useState<number[]>([]);
+	const [loadingPanel, setloadingPanel] = useState<boolean>(false);
+	const [Destinations, setDestinations] = useState<number[]>([]);
+	const dispatch = useDispatch();
 
-	const UpdatePanel = async () => {
-		setLoadingPanel(true);
-		console.log(`\nCurrent Floor: ${currentFloor}`);
-		const config = await requestElevatorConfig();
-		const status = await requestElevatorStatus();
-		console.log("Config: ", config);
-		console.log("Status: ", status);
+	const OpenPanel = async () => {
+		// Check if the panel is already open
+		if (currentPanel === ID) {
+			return;
+		}
 
-		console.log("Lift Type: ", typeof status?.lifts);
+		setloadingPanel(true);
+		try {
+			const config: AllElevatorConfig = await requestElevatorConfig();
+			const status: AllElevatorStatus = await requestElevatorStatus();
 
-		setConfig(config);
-		setStatus(status);
-		GetLiftsFromConfig();
-		setLoadingPanel(false);
+			// to show all possible destinations
+			setAvailableFloors(config.lifts[ID].serviced_floors);
+
+			// To show previously set destinations
+			setDestinations(status.lifts[ID].destinations);
+
+			// show panel once data is loaded
+			dispatch(setCurrentPanel(ID));
+			// setshowPanel(true);
+		} catch (error) {
+			console.error("Error fetching elevator configuration:", error);
+			alert("Error fetching elevator configuration");
+		} finally {
+			// Ensure loading state is reset regardless of success or error
+			setloadingPanel(false);
+		}
 	};
 
-	const GetLiftsFromConfig = () => {
-		if (Config) {
-			// Keys are numbers not strings so need a bit of magic type coercion here
-			let LiftIDs: number[] = Object.keys(Config.lifts).map(Number);
-			let availableLifts: {
-				liftID: number;
-				liftFloors: SingleElevatorConfig;
-			}[] = [];
-
-			/* To filter the lifts that can be accessed from the current floor,
-			we need to iterate "lifts", but since "lifts" is an object not an array we can use a traditional for loop */
-			for (let i = 0; i < LiftIDs.length; i++) {
-				console.log(
-					`Lift ${LiftIDs[i]} Floors: ${Config.lifts[i].serviced_floors}`
-				);
-				if (Config.lifts[i].serviced_floors.includes(currentFloor)) {
-					availableLifts.push({
-						liftID: LiftIDs[i],
-						liftFloors: Config.lifts[i],
-					});
-				}
-			}
-
-			console.log(availableLifts);
-			setLifts(availableLifts);
+	const ChooseDestination = async (Destination: number) => {
+		try {
+			// let response: ElevatorRequestResponse = await requestElevatorDestination({
+			// 	from_floor: currentFloor,
+			// 	to_floor: Destination,
+			// });
+			// dispatch(setRequiredLift(response.lift));
+			dispatch(setCurrentPanel(-1));
+		} catch (error) {
+			console.error("Error sending destination POST request:", error);
+			alert("Error sending destination POST request");
+		} finally {
+			// Ensure loading state is reset regardless of success or error
+			setloadingPanel(false);
 		}
 	};
 
 	useEffect(() => {
-		UpdatePanel();
-	}, [currentFloor]);
+		console.log(`currentPanel: ${currentPanel}`);
+	}, [currentPanel]);
+
+	const ControlModal = () => {
+		return (
+			<div className="ControlPanel">
+				<h2 className="LiftName">Lift {ID}</h2>
+				<p>Choose a destination</p>
+				<div className="AllFloorsContainer">
+					{AvailableFloors.map((Floor: number) => {
+						return (
+							<span key={Floor} className="FloorContainer">
+								{Floor}:
+								<button
+									className={Destinations.includes(Floor) ? "highlight" : ""}
+									key={Floor}
+									onClick={() => {
+										ChooseDestination(Floor);
+									}}
+								></button>
+							</span>
+						);
+					})}
+				</div>
+			</div>
+		);
+	};
 
 	return (
-		<div className="ControlPanel">
-			{LoadingPanel ? (
-				<h2>Loading Panel</h2>
-			) : (
-				<>
-					<h3>Callable Lifts from this floor:</h3>
-					<div className="CurrentFloorLifts">
-						{Lifts?.map((Lift: AvailableLift) => {
-							return (
-								<div className="Lift">
-									<p>Lift: {Lift.liftID}</p>
-									{/* <p>{Lift.liftFloors.serviced_floors}</p> */}
-								</div>
-							);
-						})}
-					</div>
-				</>
-			)}
+		<div className="CallLiftButton" onClick={OpenPanel}>
+			{currentPanel === ID ? <ControlModal /> : ""}
 		</div>
 	);
 };

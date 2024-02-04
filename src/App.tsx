@@ -43,7 +43,7 @@ function App() {
 			} else {
 				dispatch(setCurrentFloor(0));
 			}
-		}, 5000);
+		}, 5000000);
 
 		// Clear intervals to prevent memory leaks
 		return () => {
@@ -65,6 +65,7 @@ function App() {
 							/* Single lift and its control panel */
 							return (
 								<LiftComponent
+									key={Lift.liftID}
 									currentFloor={currentFloor}
 									liftID={Lift.liftID}
 								/>
