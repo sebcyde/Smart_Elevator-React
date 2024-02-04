@@ -42,7 +42,6 @@ export const requestElevatorDestination = async ({
 // GET Request - Returns current positions and destination of all elevators
 export const requestElevatorStatus = async (): Promise<AllElevatorStatus> => {
 	try {
-		return fakeStatus;
 		// Return elevators status object
 		const response = await axios.get(ElevatorStatusEndpoint);
 		return response.data;
@@ -55,7 +54,6 @@ export const requestElevatorStatus = async (): Promise<AllElevatorStatus> => {
 // GET Request - Returns serviceable floors of all elevators
 export const requestElevatorConfig = async (): Promise<AllElevatorConfig> => {
 	try {
-		return fakeConfig;
 		// Return elevators config object
 		const response = await axios.get(ElevatorConfigEndpoint);
 		return response.data;
