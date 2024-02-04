@@ -2,6 +2,34 @@
 
 Welcome to the Smart Elevator Control Panel application! This React-based control panel provides an intuitive interface for users to interact with a network of elevators efficiently.
 
+
+## How To Use
+
+  - **Online**
+  - Visit: https://sebcyde.github.io/Smart_Elevator-React/
+
+  - **Locally**
+  - Clone the repository:
+    ```json
+    git clone https://github.com/sebcyde/Smart_Elevator-React.git    
+    ```
+
+  - CD into the cloned repo:
+    ```json
+    cd Smart_Elevator-React    
+    ```
+
+  - Build the application:
+    ```json
+    npm run build    
+    ```
+
+  - Run the application:
+    ```json
+    npm run dev    
+    ```
+
+
 ## User Journey
 
 As a user interacting with the control panel:
