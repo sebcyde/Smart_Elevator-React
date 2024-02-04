@@ -2,11 +2,43 @@
 
 Welcome to the Smart Elevator Control Panel application! This React-based control panel provides an intuitive interface for users to interact with a network of elevators efficiently.
 
+## API Endpoints
+
+### Locations of API endpoints to be replaced:
+
+- **Request Elevator Destination:**
+  - **Location** `/src/Functions/ApiEndpoints/ElevatorRequestEndpoint`
+  - **POST** `/api/lift/request/`
+  - Example Payload:
+    ```json
+    { "from_floor": 0, "to_floor": 5 }    
+    ```
+  - Example Response: 
+    ```json
+    { "lift": 4 }    
+    ```
+
+- **Request Elevator Status:**
+  - **Location** `/src/Functions/ApiEndpoints/ElevatorStatusEndpoint`
+  - **GET** `/api/lift/status/`
+  - Example Response:
+    ```json
+    { "lifts": { 0: { "floor": 0, "destinations": [1, 5, 10] }, 1: { "floor": 0, "destinations": [1, 10] } } }
+    ```
+
+- **Request Elevator Configuration:**
+  - **Location** `/src/Functions/ApiEndpoints/ElevatorConfigEndpoint`
+  - **GET** `/api/lift/config/`
+  - Example Response:
+    ```json
+    { "lifts": { 0: { "serviced_floors": [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10] }, 1: { "serviced_floors": [0, 7, 8, 9, 10] } } }
+    ```
+
 
 ## How To Use
 
   - **Online**
-  - Visit: https://sebcyde.github.io/Smart_Elevator-React/
+    - Visit: https://sebcyde.github.io/Smart_Elevator-React/
 
   - **Locally**
     - Clone the repository:
@@ -72,36 +104,5 @@ As a user interacting with the control panel:
 - **Update Bar:**
   - A dynamic update bar at the bottom keeps users informed about ongoing actions, such as which lift to take and reminders of previous actions.
 
-## API Endpoints
-
-### Locations of API endpoints to be replaced:
-
-- **Request Elevator Destination:**
-  - **Location** `/src/Functions/ApiEndpoints/ElevatorRequestEndpoint`
-  - **POST** `/api/lift/request/`
-  - Example Payload:
-    ```json
-    { "from_floor": 0, "to_floor": 5 }    
-    ```
-  - Example Response: 
-    ```json
-    { "lift": 4 }    
-    ```
-
-- **Request Elevator Status:**
-  - **Location** `/src/Functions/ApiEndpoints/ElevatorStatusEndpoint`
-  - **GET** `/api/lift/status/`
-  - Example Response:
-    ```json
-    { "lifts": { 0: { "floor": 0, "destinations": [1, 5, 10] }, 1: { "floor": 0, "destinations": [1, 10] } } }
-    ```
-
-- **Request Elevator Configuration:**
-  - **Location** `/src/Functions/ApiEndpoints/ElevatorConfigEndpoint`
-  - **GET** `/api/lift/config/`
-  - Example Response:
-    ```json
-    { "lifts": { 0: { "serviced_floors": [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10] }, 1: { "serviced_floors": [0, 7, 8, 9, 10] } } }
-    ```
 
 Feel free to explore the control panel and enjoy a smart and efficient elevator experience! If you have any questions or encounter issues, please refer to config or contact me.
