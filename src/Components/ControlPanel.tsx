@@ -49,6 +49,7 @@ const ControlPanel = ({ ID }: Props) => {
 	};
 
 	const ChooseDestination = async (Destination: number) => {
+		console.log(`Chosen Destination: ${Destination}`);
 		try {
 			// let response: ElevatorRequestResponse = await requestElevatorDestination({
 			// 	from_floor: currentFloor,

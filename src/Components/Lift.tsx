@@ -5,12 +5,14 @@ import {
 import { AllElevatorStatus } from "../Types";
 import { useEffect, useState } from "react";
 import { RootState } from "../Redux/Store";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import ControlPanel from "./ControlPanel";
 import ManOne from "../Assets/ManOne.png";
 import { mdiArrowDown } from "@mdi/js";
 import Arrow from "../Assets/Arrow.png";
 import Icon from "@mdi/react";
+import { setCurrentFloor } from "../Redux/FloorSlice";
+import { setUpdate } from "../Redux/UpdateSlice";
 
 type Props = {
 	liftID: number;
@@ -25,6 +27,7 @@ const LiftComponent = ({ liftID, currentFloor }: Props) => {
 	const [ShowArrow, setShowArrow] = useState<boolean>(false);
 	const [Position, setPosition] = useState<number>(0);
 	const [Open, setOpen] = useState<boolean>(false);
+	const dispatch = useDispatch();
 
 	const GetLiftInformation = async () => {
 		const CurrentPosition: number = await getSingleElevatorPosition(liftID);
@@ -40,6 +43,21 @@ const LiftComponent = ({ liftID, currentFloor }: Props) => {
 			setOpen(true);
 		} else {
 			setOpen(false);
+		}
+	};
+
+	const changeFloor = () => {
+		// Enter an open elevator and go to its next destination
+		if (Open) {
+			console.log("Changing Floors!");
+			dispatch(setCurrentFloor(destinations[0]));
+			dispatch(
+				setUpdate(
+					`Last Action: Took the lift from floor ${Position} ${
+						Position > destinations[0] ? "down" : "up"
+					} to floor ${destinations[0]}`
+				)
+			);
 		}
 	};
 
@@ -69,7 +87,7 @@ const LiftComponent = ({ liftID, currentFloor }: Props) => {
 						size={1}
 					/>
 				</span>
-				<div className="Lift">
+				<div className="Lift" onClick={changeFloor}>
 					<div className="Doors">
 						<div className="DoorLeft"></div>
 						<div className="DoorRight"></div>
@@ -82,6 +100,8 @@ const LiftComponent = ({ liftID, currentFloor }: Props) => {
 			<div className="CallButtonContainer">
 				<ControlPanel ID={liftID} />
 			</div>
+
+			{/* Required Lift Arrow */}
 			{/* {requiredLift == liftID ? (
 				<div className="ArrowContainer">
 					<img src={Arrow} />

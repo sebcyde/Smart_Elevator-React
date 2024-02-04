@@ -2,14 +2,12 @@
 @import "./Lift.scss";
 
 * {
-  
 	background-color: gray;
 	box-sizing: border-box;
 	color: white;
 }
 
 .App {
-	border: 1px solid blue;
 	flex-direction: column;
 	align-items: center;
 	display: flex;
@@ -17,7 +15,6 @@
 	width: 100%;
 
 	.Lobby {
-		border: 1px solid green;
 		justify-content: center;
 		padding: 0px 20px;
 		display: flex;

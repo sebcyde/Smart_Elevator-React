@@ -7,9 +7,14 @@ import LiftComponent from "./Components/Lift";
 import { useEffect, useState } from "react";
 import { RootState } from "./Redux/Store";
 import { AvailableLift } from "./Types";
+import BottomStatus from "./Components/BottomStatus";
 
 function App() {
 	const [CurrentFloorLifts, setCurrentFloorLifts] = useState<AvailableLift[]>();
+
+	const currentPanel: number = useSelector(
+		(state: RootState) => state.currentPanel
+	);
 
 	const destinationFloors: number[] = useSelector(
 		(state: RootState) => state.destinations
@@ -35,21 +40,30 @@ function App() {
 
 		// Testing floor change mechanic
 		const testFloorChange = setInterval(() => {
-			console.log(`\nCurrent Floor: ${currentFloor}`);
+			console.log(`\nCurrent Floor in INTERVAL: ${currentFloor}`);
 
-			// Use a callback function with dispatch to ensure the correct state value
-			if (currentFloor < 10) {
-				dispatch(setCurrentFloor(currentFloor + 1));
+			// Log the currentPanel value
+			console.log(`Current Panel: ${currentPanel}`);
+
+			console.log("\n\n\nCHANGING FLOOR\n\n\n");
+			// Dont change if user is selecting a floor!
+			if (currentPanel === -1) {
+				// Use a callback function with dispatch to ensure the correct state value
+				if (currentFloor < 10) {
+					dispatch(setCurrentFloor(currentFloor + 1));
+				} else {
+					dispatch(setCurrentFloor(0));
+				}
 			} else {
-				dispatch(setCurrentFloor(0));
+				console.log("\n\nControl Panel Open\n\n");
 			}
-		}, 5000000);
+		}, 5000);
 
 		// Clear intervals to prevent memory leaks
 		return () => {
 			clearInterval(testFloorChange);
 		};
-	}, [currentFloor, changingFloor]);
+	}, [currentFloor, changingFloor, currentPanel]);
 
 	return (
 		<div className="App">
@@ -59,7 +73,7 @@ function App() {
 				/>
 			) : (
 				<>
-					<StatusBoard /> {/* Contains Info About Floors */}
+					<StatusBoard /> {/* Contains Info About Current Floor */}
 					<div className="Lobby">
 						{CurrentFloorLifts?.map((Lift: AvailableLift) => {
 							/* Single lift and its control panel */
@@ -72,6 +86,7 @@ function App() {
 							);
 						})}
 					</div>
+					<BottomStatus />
 				</>
 			)}
 		</div>

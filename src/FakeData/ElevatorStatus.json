@@ -14,11 +14,11 @@
 		},
 		"3": {
 			"floor": 5,
-			"destinations": [9, 2, 7]
+			"destinations": [9, 2, 7, 8]
 		},
 		"4": {
 			"floor": 10,
-			"destinations": [1, 4, 8]
+			"destinations": [7, 4, 8]
 		}
 	}
 }
