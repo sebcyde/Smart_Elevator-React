@@ -14,7 +14,8 @@ const ChangingFloors = ({ ChangeDirection }: Props) => {
 				aria-label="Loading Spinner"
 				data-testid="loader"
 			/>
-			<p> {ChangeDirection === "up" ? "Going Up" : "Going Down"}</p>
+			<p>Loading...</p>
+			{/* <p> {ChangeDirection === "up" ? "Going Up" : "Going Down"}</p> */}
 		</div>
 	);
 };
