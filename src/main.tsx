@@ -10,7 +10,7 @@ import React from "react";
 
 const router = createBrowserRouter([
 	{
-		path: "/Smart_Elevator-React/lobby",
+		path: "/Smart_Elevator-React/",
 		element: <App />,
 	},
 	{
