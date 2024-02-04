@@ -9,26 +9,25 @@ Welcome to the Smart Elevator Control Panel application! This React-based contro
   - Visit: https://sebcyde.github.io/Smart_Elevator-React/
 
   - **Locally**
-  - Clone the repository:
-    ```json
-    git clone https://github.com/sebcyde/Smart_Elevator-React.git    
-    ```
+    - Clone the repository:
+      ```
+      git clone https://github.com/sebcyde/Smart_Elevator-React.git    
+      ```
 
-  - CD into the cloned repo:
-    ```json
-    cd Smart_Elevator-React    
-    ```
+    - CD into the cloned repo:
+      ```
+      cd Smart_Elevator-React    
+      ```
 
-  - Build the application:
-    ```json
-    npm run build    
-    ```
+    - Build the application:
+      ```
+      npm run build    
+      ```
 
-  - Run the application:
-    ```json
-    npm run dev    
-    ```
-
+    - Run the application:
+      ```
+      npm run dev    
+      ```
 
 ## User Journey
 
