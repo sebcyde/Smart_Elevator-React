@@ -1,105 +1,113 @@
-import { AllElevatorConfig, AllElevatorStatus } from "../Types";
-import {
-	requestElevatorConfig,
-	requestElevatorStatus,
-} from "../Functions/ElevatorControls";
-import { useState, useEffect } from "react";
-import { RootState } from "../Redux/Store";
+import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import {
+  requestElevatorConfig,
+  requestElevatorDestination,
+  requestElevatorStatus,
+} from "../Functions/ElevatorControls";
 import { setCurrentPanel } from "../Redux/PanelSlice";
+import { setRequiredLift } from "../Redux/RequiredLiftSlice";
+import { RootState } from "../Redux/Store";
+import { setUpdate } from "../Redux/UpdateSlice";
+import {
+  AllElevatorConfig,
+  AllElevatorStatus,
+  ElevatorRequestResponse,
+} from "../Types";
 
 type Props = {
-	ID: number;
+  ID: number;
 };
 
 const ControlPanel = ({ ID }: Props) => {
-	const currentPanel = useSelector((state: RootState) => state.currentPanel);
-	const [AvailableFloors, setAvailableFloors] = useState<number[]>([]);
-	const [loadingPanel, setloadingPanel] = useState<boolean>(false);
-	const [Destinations, setDestinations] = useState<number[]>([]);
-	const dispatch = useDispatch();
+  const currentPanel = useSelector((state: RootState) => state.currentPanel);
+  const currentFloor = useSelector((state: RootState) => state.currentFloor);
 
-	const OpenPanel = async () => {
-		// Check if the panel is already open
-		if (currentPanel === ID) {
-			return;
-		}
+  const [AvailableFloors, setAvailableFloors] = useState<number[]>([]);
+  const [loadingPanel, setloadingPanel] = useState<boolean>(false);
+  const [Destinations, setDestinations] = useState<number[]>([]);
+  const dispatch = useDispatch();
 
-		setloadingPanel(true);
-		try {
-			const config: AllElevatorConfig = await requestElevatorConfig();
-			const status: AllElevatorStatus = await requestElevatorStatus();
+  const OpenPanel = async () => {
+    // Check if the panel is already open
+    if (currentPanel === ID) {
+      return;
+    }
 
-			// to show all possible destinations
-			setAvailableFloors(config.lifts[ID].serviced_floors);
+    setloadingPanel(true);
+    try {
+      const config: AllElevatorConfig = await requestElevatorConfig();
+      const status: AllElevatorStatus = await requestElevatorStatus();
 
-			// To show previously set destinations
-			setDestinations(status.lifts[ID].destinations);
+      // to show all possible destinations
+      setAvailableFloors(config.lifts[ID].serviced_floors);
 
-			// show panel once data is loaded
-			dispatch(setCurrentPanel(ID));
-			// setshowPanel(true);
-		} catch (error) {
-			console.error("Error fetching elevator configuration:", error);
-			alert("Error fetching elevator configuration");
-		} finally {
-			// Ensure loading state is reset regardless of success or error
-			setloadingPanel(false);
-		}
-	};
+      // To show previously set destinations
+      setDestinations(status.lifts[ID].destinations);
 
-	const ChooseDestination = async (Destination: number) => {
-		console.log(`Chosen Destination: ${Destination}`);
-		try {
-			// let response: ElevatorRequestResponse = await requestElevatorDestination({
-			// 	from_floor: currentFloor,
-			// 	to_floor: Destination,
-			// });
-			// dispatch(setRequiredLift(response.lift));
-			dispatch(setCurrentPanel(-1));
-		} catch (error) {
-			console.error("Error sending destination POST request:", error);
-			alert("Error sending destination POST request");
-		} finally {
-			// Ensure loading state is reset regardless of success or error
-			setloadingPanel(false);
-		}
-	};
+      // show panel once data is loaded
+      dispatch(setCurrentPanel(ID));
+    } catch (error) {
+      console.error("Error sending destination POST request:", error);
+      alert("Error fetching elevator configuration. Check console");
+    } finally {
+      // Ensure loading state is reset regardless of success or error
+      setloadingPanel(false);
+    }
+  };
 
-	useEffect(() => {
-		console.log(`currentPanel: ${currentPanel}`);
-	}, [currentPanel]);
+  const ChooseDestination = async (Destination: number) => {
+    // Update bottom activity bar
+    dispatch(setUpdate(`Chosen Destination: Floor ${Destination}`));
 
-	const ControlModal = () => {
-		return (
-			<div className="ControlPanel">
-				<h2 className="LiftName">Lift {ID}</h2>
-				<p>Choose a destination</p>
-				<div className="AllFloorsContainer">
-					{AvailableFloors.map((Floor: number) => {
-						return (
-							<span key={Floor} className="FloorContainer">
-								{Floor}:
-								<button
-									className={Destinations.includes(Floor) ? "highlight" : ""}
-									key={Floor}
-									onClick={() => {
-										ChooseDestination(Floor);
-									}}
-								></button>
-							</span>
-						);
-					})}
-				</div>
-			</div>
-		);
-	};
+    try {
+      let response: ElevatorRequestResponse = await requestElevatorDestination({
+        from_floor: currentFloor,
+        to_floor: Destination,
+      });
+      dispatch(setRequiredLift(response.lift));
 
-	return (
-		<div className="CallLiftButton" onClick={OpenPanel}>
-			{currentPanel === ID ? <ControlModal /> : ""}
-		</div>
-	);
+      // Hide panel display
+      dispatch(setCurrentPanel(-1));
+    } catch (error) {
+      console.error("Error sending destination POST request:", error);
+      alert("Error sending destination POST request. Check console");
+    } finally {
+      // Ensure loading state is reset regardless of success or error
+      setloadingPanel(false);
+    }
+  };
+
+  const ControlModal = () => {
+    return (
+      <div className="ControlPanel">
+        <h2 className="LiftName">Lift {ID}</h2>
+        <p>Choose a destination</p>
+        <div className="AllFloorsContainer">
+          {AvailableFloors.map((Floor: number) => {
+            return (
+              <span key={Floor} className="FloorContainer">
+                {Floor}:
+                <button
+                  className={Destinations.includes(Floor) ? "highlight" : ""}
+                  key={Floor}
+                  onClick={() => {
+                    ChooseDestination(Floor);
+                  }}
+                ></button>
+              </span>
+            );
+          })}
+        </div>
+      </div>
+    );
+  };
+
+  return (
+    <div className="CallLiftButton" onClick={OpenPanel}>
+      {currentPanel === ID && !loadingPanel ? <ControlModal /> : ""}
+    </div>
+  );
 };
 
 export default ControlPanel;

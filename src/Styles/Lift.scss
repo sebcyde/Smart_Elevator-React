@@ -1,199 +1,219 @@
 .LiftContainer {
-	height: fit-content;
-	align-items: center;
-	position: relative;
-	margin: 0px 30px;
-	display: flex;
+  height: fit-content;
+  align-items: center;
+  position: relative;
+  margin: 0px 30px;
+  display: flex;
 
-	.LiftInner {
-		flex-direction: column;
-		margin: 0px 10px;
-		display: flex;
-		padding: 15px;
-		height: 450px;
-		width: 250px;
+  .LiftInner {
+    flex-direction: column;
+    margin: 0px 10px;
+    display: flex;
+    padding: 15px;
+    height: 450px;
+    width: 250px;
 
-		&.open {
+    &.open {
+      &:hover {
+        cursor: pointer;
+      }
 
-			&:hover{
-				cursor: pointer;
-			}
+      .DoorLeft,
+      .DoorRight {
+        display: none !important;
+      }
 
-			.DoorLeft,
-			.DoorRight {
-				display: none !important;
-			}
+      .Lift {
+        background-color: goldenrod;
+        .ManContainer {
+          display: flex !important;
+          flex-direction: column;
+          align-items: flex-end;
+          justify-content: end;
+          position: relative;
+          height: 100%;
 
-			.Lift {
-				background-color: goldenrod;
-				.ManContainer {
-					display: flex !important;
-					flex-direction: column;
-					align-items: flex-end;
-					justify-content: end;
-					position: relative;
-					height: 100%;
+          img {
+            background-color: goldenrod;
+            position: absolute;
+            margin: 5px;
+            height: 80%;
+            bottom: 0%;
+            left: 0%;
+          }
+        }
+      }
+    }
 
-					img {
-						background-color: goldenrod;
-						position: absolute;
-						margin: 5px;
-						height: 80%;
-						bottom: 0%;
-						left: 0%;
-					}
-				}
-			}
-		}
+    &:not(.open) {
+      .Doors {
+        width: 100%;
+      }
+    }
 
-		&:not(.open) {
-			.Doors {
-				width: 100%;
-			}
-		}
+    .LiftName {
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      text-align: center;
+      margin-bottom: 0px;
+    }
 
-		.LiftName {
-			text-transform: uppercase;
-			letter-spacing: 2px;
-			text-align: center;
-			margin-bottom: 0px;
-		}
+    .LiftStatus {
+      background-color: black;
+      border: 5px solid gray;
+      justify-content: center;
+      align-items: center;
+      margin: 0 auto 15px;
+      display: flex;
+      width: 100px;
 
-		.LiftStatus {
-			background-color: black;
-			border: 5px solid gray;
-			justify-content: center;
-			align-items: center;
-			margin: 0 auto 15px;
-			display: flex;
-			width: 100px;
+      &.GoingUp {
+        .LiftDirection {
+          rotate: 180deg !important;
+        }
+      }
 
-			&.GoingUp {
-				.LiftDirection {
-					rotate: 180deg !important;
-				}
-			}
+      .LiftLocation,
+      .LiftDirection {
+        background-color: transparent;
+        margin: 0px 5px;
+      }
+    }
 
-			.LiftLocation,
-			.LiftDirection {
-				background-color: transparent;
-				margin: 0px 5px;
-			}
-		}
+    .Lift {
+      border: 1px solid black;
+      display: flex;
+      height: 100%;
+      flex: 1;
 
-		.Lift {
-			border: 1px solid black;
-			display: flex;
-			height: 100%;
-			flex: 1;
+      .ManContainer {
+        display: none;
+      }
 
-			.ManContainer {
-				display: none;
-			}
+      .Doors {
+        justify-content: space-evenly;
+        display: flex;
+        height: 100%;
+        .DoorLeft,
+        .DoorRight {
+          background-color: darkslategray;
+          height: 100%;
+          width: 50%;
+        }
 
-			.Doors {
-				justify-content: space-evenly;
-				display: flex;
-				height: 100%;
-				.DoorLeft,
-				.DoorRight {
-					background-color: darkslategray;
-					height: 100%;
-					width: 50%;
-				}
+        .DoorLeft {
+          border-right: 1px solid black;
+        }
+        .DoorRight {
+          border-left: 1px solid black;
+        }
+      }
+    }
+  }
 
-				.DoorLeft {
-					border-right: 1px solid black;
-				}
-				.DoorRight {
-					border-left: 1px solid black;
-				}
-			}
-		}
-	}
+  .CallButtonContainer {
+    background-color: darkslategray;
+    border: 1px solid black;
+    justify-content: center;
+    align-items: center;
+    display: flex;
+    height: 60px;
+    width: 60px;
 
-	.CallButtonContainer {
-		background-color: darkslategray;
-		border: 1px solid black;
-		justify-content: center;
-		align-items: center;
-		display: flex;
-		height: 60px;
-		width: 60px;
+    .CallLiftButton {
+      background-color: red;
+      border: 1px solid black;
+      border-radius: 50%;
+      height: 40%;
+      width: 40%;
 
-		.CallLiftButton {
-			background-color: red;
-			border: 1px solid black;
-			border-radius: 50%;
-			height: 40%;
-			width: 40%;
+      :hover {
+        cursor: pointer;
+      }
+    }
+  }
 
-			:hover {
-				cursor: pointer;
-			}
-		}
-	}
+  .ControlPanel {
+    background-color: darkslategray;
+    text-transform: uppercase;
+    border: 1px solid black;
+    justify-content: center;
+    flex-direction: column;
+    letter-spacing: 2px;
+    text-align: center;
+    position: absolute;
+    font-weight: 600;
+    font-size: 25px;
+    display: flex;
+    padding: 20px;
+    z-index: 9999;
+    width: 400px;
 
-	.ControlPanel {
-		background-color: darkslategray;
-		text-transform: uppercase;
-		border: 1px solid black;
-		justify-content: center;
-		flex-direction: column;
-		letter-spacing: 2px;
-		text-align: center;
-		position: absolute;
-		font-weight: 600;
-		font-size: 25px;
-		display: flex;
-		padding: 20px;
-		z-index: 9999;
-		width: 400px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
 
-		position: absolute;
-		top: 50%;
-		left: 50%;
-		transform: translate(-50%, -50%);
+    h2,
+    p {
+      background-color: transparent;
+      margin: 0px;
+      width: 100%;
+    }
 
-		h2,
-		p {
-			background-color: transparent;
-			margin: 5px 0px;
-			width: 100%;
-		}
+    h2 {
+      font-size: 23px;
+    }
 
-		.AllFloorsContainer {
-			display: flex;
-			flex-wrap: wrap;
-		}
+    p {
+      margin-bottom: 10px;
+      font-size: 20px;
+    }
 
-		.FloorContainer {
-			align-items: center;
-			width: fit-content;
-			display: flex;
-			margin: 20px;
+    .AllFloorsContainer {
+      display: flex;
+      flex-wrap: wrap;
+    }
 
-			button {
-				background-color: brown;
-				border-radius: 50%;
-				padding: 10px;
-				height: 50px;
-				width: 50px;
+    .FloorContainer {
+      align-items: center;
+      width: fit-content;
+      display: flex;
+      margin: 20px;
 
-				&.highlight {
-					background-color: goldenrod;
-				}
-			}
-		}
-	}
+      button {
+        background-color: brown;
+        border-radius: 50%;
+        padding: 10px;
+        height: 50px;
+        width: 50px;
 
-	.ArrowContainer {
-		background: transparent;
-		position: absolute;
-		height: 100px;
-		width: auto;
-		bottom: 0px;
-		z-index: 99;
-		rotate: -90deg;
-	}
+        &.highlight {
+          background-color: goldenrod;
+        }
+
+        &:hover {
+          background-color: red;
+        }
+      }
+    }
+  }
+
+  .ArrowContainer {
+    transform: translate(-50%, -50%);
+    background: transparent;
+    position: absolute;
+    width: fit-content;
+    position: absolute;
+    rotate: -90deg;
+    bottom: -20px;
+    height: 100px;
+    z-index: 99;
+    left: 55%;
+
+    img {
+      background: inherit;
+      height: 50px;
+    }
+  }
 }

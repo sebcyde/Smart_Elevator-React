@@ -3,7 +3,7 @@ import { createSlice } from "@reduxjs/toolkit";
 import type { RootState } from "./Store";
 
 // Initialise At Ground Floor
-const initialState: string = "";
+const initialState: string = "Press a red button to open a control panel.";
 
 export const UpdateSlice = createSlice({
 	name: "Update",

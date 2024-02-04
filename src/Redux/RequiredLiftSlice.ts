@@ -2,7 +2,7 @@ import type { PayloadAction } from "@reduxjs/toolkit";
 import { createSlice } from "@reduxjs/toolkit";
 
 // Needed for floor loading animations
-const initialState: number = 0;
+const initialState: number = -1;
 
 export const RequiredLiftSlice = createSlice({
 	name: "RequiredLift",
