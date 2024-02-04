@@ -66,7 +66,9 @@ const LiftComponent = ({ liftID, currentFloor }: Props) => {
 	}, [currentFloor]);
 
 	useEffect(() => {
+
 		console.log(`requiredLift: ${requiredLift}`);
+		// dispatch(setUpdate(`To get to that floor, use Lift: ${requiredLift}`))
 		// remove?
 		setShowArrow(true);
 	}, [requiredLift]);

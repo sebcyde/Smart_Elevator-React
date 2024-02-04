@@ -1,20 +1,22 @@
 .StatusBoard {
+	font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
 	text-transform: uppercase;
 	justify-content: center;
 	align-items: center;
-	letter-spacing: 2px;
 	text-align: center;
 	width: fit-content;
 	margin: 20px auto;
 	background-color: gold;
 	font-weight: 600;
-	font-size: 25px;
+	font-size: 20px;
 	display: flex;
-	padding: 20px;
+	padding: 10px;
+	width: 250px;
 	color: black;
 }
 
 .BottomStatusContainer {
+	font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
 	justify-content: center;
 	align-items: center;
 	letter-spacing: 1px;
@@ -23,7 +25,7 @@
 	margin: 20px auto;
 	font-weight: 600;
 	font-size: 25px;
+	color: black;
 	display: flex;
 	padding: 20px;
-	color: black;
 }

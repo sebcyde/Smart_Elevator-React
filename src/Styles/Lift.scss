@@ -10,10 +10,15 @@
 		margin: 0px 10px;
 		display: flex;
 		padding: 15px;
-		height: 600px;
-		width: 350px;
+		height: 450px;
+		width: 250px;
 
 		&.open {
+
+			&:hover{
+				cursor: pointer;
+			}
+
 			.DoorLeft,
 			.DoorRight {
 				display: none !important;
