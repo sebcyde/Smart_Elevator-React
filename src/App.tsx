@@ -65,7 +65,7 @@ function App() {
 
   return (
     <div className="App">
-      {changingFloor || !CurrentFloorLifts ? (
+      {!CurrentFloorLifts ? (
         <ChangingFloors
           ChangeDirection={currentFloor > destinationFloors[0] ? "up" : "down"}
         />
